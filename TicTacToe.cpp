@@ -24,9 +24,10 @@ void input() {
 	x--;
 	board[x/3][x%3] = turn;
 }
+
 int rowWin() {
 	for(int i = 0; i < 3; i++) {
-		if(board[i][0] == 'X' && board[i][1] == 'X' && board[i][2] == 'X') {
+		if(board[i][0] == board[i][1] && board[i][0] == board[i][2]) {
 			cout << "WINNER WINNER CHICKEN DINNER" << endl;
 			return 1;
 		}
@@ -44,6 +45,16 @@ int colWin() {
 	return 0;
 }
 
+char Win() {
+	for(int i = 0; i < 3; i++) {
+		if(board[i][0] == board[i][1] && board[i][0] == board[i][2])
+			return board[i][0];
+		if(board[0][i] == board[1][i] && board[0][i] == board[2][i])
+			return board[0][i];
+	}
+	return '.';
+}	
+
 void turnChange() {
 	if(turn == 'X') 
 		turn = 'O';
@@ -51,6 +62,7 @@ void turnChange() {
 		turn = 'X';
 }
 int main() {
+	cout << board[0][0] << endl;
 	cout << "Welcome to Tic Tac Toe" << endl;
 	cout << "This is the gameboard. You will input the number to designate where you are going" << endl;
 	printBoard();
@@ -58,6 +70,7 @@ int main() {
 		input();
 		printBoard();
 		turnChange();
+		rowWin();
 		colWin();
 	}
 	return 0;
